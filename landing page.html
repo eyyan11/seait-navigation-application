@@ -1,0 +1,1118 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEAIT Navigation Application</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --text: #333;
+            --text-light: #7f8c8d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f9f9f9;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--accent);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #c0392b;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 180px 0 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Problem Section */
+        .problem {
+            background-color: var(--light);
+        }
+
+        .problem-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+
+        .problem-text {
+            padding-right: 20px;
+        }
+
+        .problem-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .problem-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Validation Section */
+        .validation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .validation-table th, .validation-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .validation-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .validation-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .validation-table tr:hover {
+            background-color: #e9f7fe;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .team-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .team-role {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Development Gallery Section */
+        .gallery {
+            background-color: var(--light);
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 250px;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .gallery-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            margin-top: 50px;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .upload-area {
+            width: 100%;
+            max-width: 500px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .upload-area:hover {
+            border-color: var(--secondary);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            margin-bottom: 15px;
+        }
+
+        .upload-btn {
+            background-color: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .upload-btn:hover {
+            background-color: var(--primary);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .preview-item {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(231, 76, 60, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Roadmap Section */
+        .roadmap {
+            background-color: var(--light);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--secondary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--secondary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::after {
+            right: -10px;
+        }
+
+        .right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        /* Business Model Section */
+        .business-model {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .model-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .model-card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 21px;
+            }
+
+            .right {
+                left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">SEAIT <span>Navigation</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#problem">The Problem</a></li>
+                    <li><a href="#solution">Solution</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#gallery">Development Gallery</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>SEAIT Navigation Application</h1>
+            <p>A digital navigation tool designed to aid students in easily locating various buildings and rooms within the SEAIT school campus.</p>
+            <div class="hero-buttons">
+                <a href="#features" class="btn">Explore Features</a>
+                <a href="https://youware.app/project/zfhaz1hlqr?enter_from=share&invite_code=TXJKAZSL4S" class="btn btn-accent" target="_blank">View Landing Page</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Accurate Room Locations</h3>
+                    <p>Precise, hard-coded locations for all classrooms, offices, and facilities within the campus.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h3>Building Floor Plans</h3>
+                    <p>Detailed layouts of all buildings with visual guides to help navigate complex indoor spaces.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>User-Friendly Interface</h3>
+                    <p>Intuitive design that makes campus navigation simple for students, faculty, and visitors.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📶</div>
+                    <h3>Offline Functionality</h3>
+                    <p>Works without internet connection, ensuring navigation is available anywhere on campus.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Regular Updates</h3>
+                    <p>Continuously updated with the latest campus changes and room information.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Campus-Specific</h3>
+                    <p>Tailored specifically for SEAIT campus, providing hyper-localized navigation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="problem">
+        <div class="container">
+            <h2 class="section-title">The Problem We Solve</h2>
+            <div class="problem-content">
+                <div class="problem-text">
+                    <p>Navigating the SEAIT campus can be challenging for students, faculty, and visitors due to:</p>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li>No detailed maps of classrooms and offices</li>
+                        <li>No available exact location information</li>
+                        <li>No updates about classroom and office changes</li>
+                        <li>Time-consuming manual searches</li>
+                        <li>Dependence on asking guards, teachers, or fellow students</li>
+                    </ul>
+                    <p>This leads to confusion, wasted time, and frustration, especially for new students and visitors.</p>
+                </div>
+                <div class="problem-image">
+                    <!-- Placeholder for problem illustration -->
+                    <div style="background-color: #ddd; height: 300px; display: flex; align-items: center; justify-content: center;">
+                        <p style="color: #777;">Campus Navigation Challenge Illustration</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="solution">
+        <div class="container">
+            <h2 class="section-title">Our Solution</h2>
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <p>The SEAIT Navigation Application provides an interactive digital map with hard-coded, precise locations for all classrooms, offices, and facilities. It enhances the campus experience by offering detailed building layouts, visual guides, and centralized information.</p>
+                <div style="margin: 40px 0;">
+                    <a href="https://youtube.com/shorts/Eqou4hXQYKo?si=w6rivql5zXlAkAZf" class="btn" target="_blank">Watch Explainer Video</a>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; margin: 50px 0 30px;">Customer Validation</h3>
+            <div style="overflow-x: auto;">
+                <table class="validation-table">
+                    <thead>
+                        <tr>
+                            <th>Experiment</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Problem</strong></td>
+                            <td>Difficulty finding designated classrooms and offices</td>
+                            <td>Limited information about designated classrooms</td>
+                            <td>Time-consuming manual searches</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Solution</strong></td>
+                            <td>Campus classroom and office locations</td>
+                            <td>Details about particular classroom locations</td>
+                            <td>Accurate location of every classroom and office</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Success Criteria</strong></td>
+                            <td>85% of surveyed students confirm navigation difficulties</td>
+                            <td>Over 75% of test users find the app interface secure and easy</td>
+                            <td>At least 80% of users express trust in the app</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Results</strong></td>
+                            <td>All interviewed students reported significant difficulty</td>
+                            <td>90% of beta testers found the app intuitive</td>
+                            <td>95% of users felt the app was safe and trustworthy</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="Cunanan.jpg" alt="Jamer Jule Cunanan" class="team-img">
+                    <div class="team-info">
+                        <h3>Jamer Jule Cunanan</h3>
+                        <div class="team-role">Hacker</div>
+                        <p>Responsible for creating the application and making it functional.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="sausa.png" alt="Ian James C. Sausa" class="team-img">
+                    <div class="team-info">
+                        <h3>Ian James C. Sausa</h3>
+                        <div class="team-role">Hustler</div>
+                        <p>Responsible for the documentation of the application.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="tanare.png" alt="Paul Tañare" class="team-img">
+                    <div class="team-info">
+                        <h3>Paul Tañare</h3>
+                        <div class="team-role">Hipster</div>
+                        <p>Responsible for tutorials on how to use the application.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="SALIDATU.jpg" alt="Hamar Salidatu" class="team-img">
+                    <div class="team-info">
+                        <h3>Hamar Salidatu</h3>
+                        <div class="team-role">Hipster</div>
+                        <p>Responsible for taking pictures of facilities, buildings, and classrooms.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Development Gallery</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+                Take a look at our journey developing the SEAIT Navigation Application. From planning to implementation, 
+                see how our team worked together to create this innovative campus navigation solution.
+            </p>
+            
+            <div class="gallery-container">
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="planning">Planning</button>
+                    <button class="filter-btn" data-filter="development">Development</button>
+                    <button class="filter-btn" data-filter="testing">Testing</button>
+                    <button class="filter-btn" data-filter="team">Team Photos</button>
+                </div>
+                
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Gallery items will be dynamically added here -->
+                </div>
+            </div>
+            
+            <div class="upload-section">
+                <h3 style="text-align: center; margin-bottom: 30px;">Upload Development Photos</h3>
+                <div class="upload-container">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <p class="upload-text">Drag & drop images here or click to browse</p>
+                        <button class="upload-btn" id="browseBtn">Browse Files</button>
+                        <input type="file" id="fileInput" class="file-input" accept="image/*" multiple>
+                    </div>
+                    
+                    <div class="upload-preview" id="uploadPreview">
+                        <!-- Preview items will be added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="roadmap">
+        <div class="container">
+            <h2 class="section-title">Development Roadmap</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">August 11 - September 22</div>
+                        <h3>SEAIT Navigation Application</h3>
+                        <p><strong>Goal:</strong> To create an application that will help students find any classroom within minutes.</p>
+                        <p><strong>Features:</strong> Centralized Campus Guide</p>
+                        <p><strong>Metrics:</strong> Student Feedback (30%)</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">September 24 - October 6</div>
+                        <h3>SEAIT Navigation Map Version 1.1</h3>
+                        <p><strong>Goal:</strong> To provide exact locations and detailed information for all campus facilities.</p>
+                        <p><strong>Features:</strong> Interactive Campus Map</p>
+                        <p><strong>Metrics:</strong> App Stability & Load Time (20%)</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">October 7 - October 21</div>
+                        <h3>SEAIT Navigation Map Version 1.2</h3>
+                        <p><strong>Goal:</strong> To enhance navigation with visual guides like pictures.</p>
+                        <p><strong>Features:</strong> Picture Guides for Locations</p>
+                        <p><strong>Metrics:</strong> User Engagement (20%)</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">October 27 - November 1</div>
+                        <h3>SEAIT Navigation Map</h3>
+                        <p><strong>Goal:</strong> To help users navigate the campus efficiently without confusion.</p>
+                        <p><strong>Features:</strong> Offline Functionality</p>
+                        <p><strong>Metrics:</strong> Feature Usage Statistics (15%)</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">November 2 - November 9</div>
+                        <h3>SEAIT Navigation Map</h3>
+                        <p><strong>Goal:</strong> To offer the fastest and easiest way to locate any room or building.</p>
+                        <p><strong>Features:</strong> Detailed Building Floor Plans</p>
+                        <p><strong>Metrics:</strong> Overall User Satisfaction (15%)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Model Section -->
+    <section class="business-model-section">
+        <div class="container">
+            <h2 class="section-title">Business Model</h2>
+            <div class="business-model">
+                <div class="model-card">
+                    <h3>Revenue Streams</h3>
+                    <ul>
+                        <li><strong>In-App Advertisements:</strong> Non-intrusive ads from local businesses like coffee shops and bookstores.</li>
+                        <li><strong>Premium Features:</strong> Tiered model with advanced features like AR wayfinding and event-specific navigation.</li>
+                        <li><strong>Licensing:</strong> Licensing the application framework to other educational institutions.</li>
+                    </ul>
+                </div>
+                <div class="model-card">
+                    <h3>Competitive Advantage</h3>
+                    <p>The SEAIT Navigation Application holds a decisive competitive edge over general-purpose platforms like Google Maps by delivering hyper-localized, campus-specific functionality.</p>
+                    <p>While Google Maps excels at street-level navigation, our application offers precise, room-level guidance inside campus buildings.</p>
+                </div>
+                <div class="model-card">
+                    <h3>Technology Stack</h3>
+                    <ul>
+                        <li><strong>Flutter:</strong> For cross-platform mobile application development</li>
+                        <li><strong>Dart:</strong> Primary programming language for application logic</li>
+                        <li><strong>Offline Maps:</strong> Hard-coded campus data for offline functionality</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <p>Crossing Rubber, Tupi, South Cotabato, Province</p>
+                <p>09776252057</p>
+                <div style="margin: 30px 0;">
+                    <a href="https://youware.app/project/zfhaz1hlqr?enter_from=share&invite_code=TXJKAZSL4S" class="btn" target="_blank">Visit Landing Page</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SEAIT Navigation</h3>
+                    <p>A digital navigation tool designed to aid students in easily locating various buildings and rooms within the SEAIT school campus.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#problem">The Problem</a></li>
+                        <li><a href="#solution">Solution</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#gallery">Development Gallery</a></li>
+                        <li><a href="#roadmap">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://youtube.com/shorts/Eqou4hXQYKo?si=w6rivql5zXlAkAZf" target="_blank">Explainer Video</a></li>
+                        <li><a href="https://youware.app/project/zfhaz1hlqr?enter_from=share&invite_code=TXJKAZSL4S" target="_blank">Landing Page</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 SEAIT Navigation Application. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Gallery functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const uploadArea = document.getElementById('uploadArea');
+            const browseBtn = document.getElementById('browseBtn');
+            const fileInput = document.getElementById('fileInput');
+            const uploadPreview = document.getElementById('uploadPreview');
+            
+            // Sample gallery data (you can replace with your own images)
+            const galleryItems = [
+                {
+                    id: 1,
+                    category: 'planning',
+                    title: 'Initial Planning Session',
+                    date: '
